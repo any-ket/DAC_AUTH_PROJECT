@@ -11,7 +11,7 @@ export default class Register extends Component {
   state = { registerError: null }
   handleSubmit = (e) => {
     e.preventDefault()
-    auth(this.email.value, this.pw.value)
+    auth(this.email.value, this.pw.value, this.nm.value)
       .catch(e => this.setState(setErrorMsg(e)))
   }
   render () {
@@ -19,6 +19,10 @@ export default class Register extends Component {
       <div className="col-sm-6 col-sm-offset-3">
         <h1>Register</h1>
         <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label>Name</label>
+            <input type="text" className="form-control" placeholder="Name" ref={(nm) => this.nm = nm} />
+          </div>
           <div className="form-group">
             <label>Email</label>
             <input className="form-control" ref={(email) => this.email = email} placeholder="Email"/>

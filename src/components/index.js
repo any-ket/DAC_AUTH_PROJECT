@@ -5,8 +5,7 @@ import Login from './Login'
 import Register from './Register'
 import Home from './Home'
 import Dashboard from './protected/Dashboard'
-import { logout } from '../helpers/auth'
-import { firebaseAuth } from '../config/constants'
+import { checkIsLoggedIn, logout } from '../helpers/auth'
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
   return (
@@ -36,22 +35,15 @@ export default class App extends Component {
     loading: true,
   }
   componentDidMount () {
-    this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          authed: true,
-          loading: false,
-        })
-      } else {
-        this.setState({
-          authed: false,
-          loading: false
-        })
-      }
-    })
-  }
-  componentWillUnmount () {
-    this.removeListener()
+    checkIsLoggedIn().then(res => res.json()).then(resp => {
+      console.log("resp", resp)
+      let newState = this.state;
+      newState.authed = resp.isLoggedIn;
+      newState.loading = false;
+
+      this.setState(newState);
+
+    });
   }
   render() {
     return this.state.loading === true ? <h1>Loading</h1> : (
@@ -60,7 +52,7 @@ export default class App extends Component {
           <nav className="navbar navbar-default navbar-static-top">
             <div className="container">
               <div className="navbar-header">
-                <Link to="/" className="navbar-brand">React Router + Firebase Auth</Link>
+                <Link to="/" className="navbar-brand">DAC Implementation </Link>
               </div>
               <ul className="nav navbar-nav pull-right">
                 <li>

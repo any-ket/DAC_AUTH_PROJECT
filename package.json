@@ -1,5 +1,5 @@
 {
-  "name": "react-router-firebase-auth",
+  "name": "DAC",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "firebase": "^3.6.1",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
     "react-router-dom": "^4.0.0-beta.8"
